@@ -18,5 +18,7 @@ db.books = require("./book.model.js")(mongoose);
 db.courses = require("./course.model.js")(mongoose);
 db.branches = require("./branch.model.js")(mongoose);
 db.bissues = require("./bissue.model.js")(mongoose);
+db.products = require("./product.model.js")(mongoose);
+db.profiles = require("./profile.model.js")(mongoose);
 
 module.exports = db;
