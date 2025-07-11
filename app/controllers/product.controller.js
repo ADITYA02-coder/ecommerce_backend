@@ -1,17 +1,61 @@
 const db = require("../models");
 const Product = db.products;
-
+const fs = require("fs");
+  //C:\Users\Administrator\AngularNodeExpressMySQL\node-js-server\resources\static\assets
+  //C:\Users\Administrator\AngularNodeExpressMySQL\node-js-server\app\resources\static\assets\uploads\
+  global.__basedir = __dirname;
 // Create and Save a new Product
-exports.create = (req, res) => {
-  // Validate request
-  if (!req.body.name) {
-    res.status(400).send({ message: "Product Name can not be empty!" });
-    return;
-  }
+// exports.create = (req, res) => {
+//   // Validate request
+//   if (!req.body.name) {
+//     res.status(400).send({ message: "Product Name can not be empty!" });
+//     return;
+//   }
 
-  // Create a Product
-  const product = new Product({
-    name: req.body.name,
+//   // Create a Product
+//   const product = new Product({
+//     name: req.body.name,
+//     category: req.body.category,
+//     price: req.body.price,
+//     brand: req.body.brand,
+//     ram: req.body.ram,
+//     rom: req.body.rom,
+//     screenSize: req.body.screenSize,
+//     camera: req.body.camera,
+//     image: req.body.image,
+//     active: req.body.active ? req.body.active : false
+//   });
+
+//   // Save Product in the database
+//   product
+//     .save(product)
+//     .then(data => {
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Some error occurred while creating the Product."
+//       });
+//     });
+// };
+
+
+
+// Create and Save a new User
+exports.create = (req, res) => {
+  console.log("Hello Aman")
+    try {
+      console.log(req.file);
+  
+      if (req.file === undefined) {
+        return res.send(`You must select a file.`);
+        console.log("You must select a file.");
+      }
+  
+      Product.create({
+        
+        name: req.body.name,
     category: req.body.category,
     price: req.body.price,
     brand: req.body.brand,
@@ -19,22 +63,20 @@ exports.create = (req, res) => {
     rom: req.body.rom,
     screenSize: req.body.screenSize,
     camera: req.body.camera,
-    image: req.body.image,
-    active: req.body.active ? req.body.active : false
-  });
-
-  // Save Product in the database
-  product
-    .save(product)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Product."
+    active: req.body.active ? req.body.active : false,
+    
+    image: req.file.filename,
+        
+        
+      }).then(data => {
+            return res.send(data);
+            console.log(data)
+            return res.send(`File has been uploaded.`);
       });
-    });
+    } catch (error) {
+      console.log(error);
+      return res.send(`Error when trying upload images: ${error}`);
+    }
 };
 
 // Retrieve all products from the database.

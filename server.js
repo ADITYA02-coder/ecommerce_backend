@@ -72,7 +72,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
     console.log('File:', file);
 
     // Process the file and title here...
-
     res.status(200).send('File uploaded successfully');
   } catch (error) {
     console.error('Error processing upload:', error);
