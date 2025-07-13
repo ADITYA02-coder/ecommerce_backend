@@ -1,8 +1,7 @@
 const db = require("../models");
 const Product = db.products;
 const fs = require("fs");
-  //C:\Users\Administrator\AngularNodeExpressMySQL\node-js-server\resources\static\assets
-  //C:\Users\Administrator\AngularNodeExpressMySQL\node-js-server\app\resources\static\assets\uploads\
+  //http://localhost:8090/uploads/7acef58e-da7a-4986-803e-6e717de80577.jpg
   global.__basedir = __dirname;
 // Create and Save a new Product
 // exports.create = (req, res) => {
