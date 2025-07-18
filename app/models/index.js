@@ -20,5 +20,9 @@ db.branches = require("./branch.model.js")(mongoose);
 db.bissues = require("./bissue.model.js")(mongoose);
 db.products = require("./product.model.js")(mongoose);
 db.profiles = require("./profile.model.js")(mongoose);
+db.questions = require("./question.model.js")(mongoose);
+db.answers = require("./answer.model.js")(mongoose);
+db.comments = require("./comment.model.js")(mongoose);
+db.votes = require("./vote.model.js")(mongoose);
 
 module.exports = db;

@@ -1,16 +1,10 @@
 module.exports = mongoose => {
   var schema = mongoose.Schema(
     {
-      id: String,
-      profileName: String,
-      subProfileName: String,
-      followers:String,
-      role: String,
-      workingAt: String,
-      livesIn: String,
-      motherTongue: String,
+      user:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Reference to User,
+      question: String,
       active: Boolean
-
+    
     },
     { timestamps: true }
   );
@@ -21,6 +15,6 @@ module.exports = mongoose => {
     return object;
   });
 
-  const Profile = mongoose.model("profile", schema);
-  return Profile;
+  const Question = mongoose.model("question", schema);
+  return Question;
 };
