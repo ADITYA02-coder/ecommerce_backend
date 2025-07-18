@@ -4,7 +4,6 @@ module.exports = mongoose => {
       id: String,
       profileName: String,
       subProfileName: String,
-      subProfileName: String,
       followers:String,
       role: String,
       workingAt: String,
