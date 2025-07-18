@@ -58,6 +58,51 @@ exports.findAll = (req, res) => {
       });
     });
 };
+// Retrieve all Questions from the database.
+exports.allDetails = (req, res) => {
+  Question.aggregate([
+    {
+      $lookup: {
+        from: "profiles",
+        localField: "user",
+        foreignField: "_id",
+        as: "profileDetails",
+      },
+    },
+    {
+      $lookup: {
+        from: "answers",
+        localField: "_id",
+        foreignField: "question",
+        as: "answerDetails",
+        pipeline: [
+          {
+            $lookup: {
+              from: "comments", // Make sure this is the actual collection name
+              localField: "_id",
+              foreignField: "answer",
+              as: "commentDetails",
+            },
+          },
+        ],
+      },
+    },
+  ])
+    .then((data) => {
+      if (data.length === 0) {
+        console.log("No Question found or no matching profiles");
+        res.status(404).send({ message: "No data found" });
+      } else {
+        res.send(data);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving data.",
+      });
+    });
+};
+
 // Find a single Cat with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;

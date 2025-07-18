@@ -6,23 +6,24 @@ const mongoose = require("mongoose");
 // Create and Save a new Book
 exports.create = (req, res) => {
   // Validate request
+ 
   if (!req.body.comment) {
     res.status(400).send({ message: "Comment can not be empty!" });
     return;
   }
-  
+   
   // Create a Book
   const comment = new Comment({
     answer: req.body.answer,
     user: req.body.user,
     comment: req.body.comment,
-    active: req.body.active ? req.body.active : false,
+    active: req.body.active ? req.body.active : false
   });
 
   // Save Book in the database
   comment
     .save()
-    .then((comment) => {
+    .then((data) => {
       res.send(data);
     })
     .catch((err) => {
