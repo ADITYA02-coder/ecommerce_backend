@@ -6,6 +6,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const app = express();
 
+
 var corsOptions = {
   credentials: true,
   origin: "http://localhost:3000"
