@@ -33,17 +33,37 @@ exports.create = (req, res) => {
 
 // Retrieve all Questions from the database.
 exports.findAll = (req, res) => {
-  const name = req.query.answer;
-  var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
-
-  Answer.find(condition)
-    .then(data => {
-      res.send(data);
+ Answer.aggregate([
+    {
+      $lookup: {
+        from: "profiles", // Ensure this matches the actual collection name in MongoDB
+        localField: "user",
+        foreignField: "_id",
+        as: "profileDetails",
+      },
+    },
+    {
+      $lookup: {
+        from: "questions", // Ensure this matches the actual collection name in MongoDB
+        localField: "question",
+        foreignField: "_id",
+        as: "questionDetails",
+      },
+    },
+    
+  ])
+    .then((data) => {
+      if (data.length === 0) {
+        console.log("No Question found or no matching profiles");
+      } else {
+        res.send(data);
+      }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving Questions."
+          err.message ||
+          "Some error occurred while retrieving profiles.",
       });
     });
 };

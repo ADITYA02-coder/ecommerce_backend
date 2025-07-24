@@ -9,6 +9,9 @@ module.exports = app => {
   // Retrieve all questions
   router.get("/", questions.findAll);
 
+  // Retrieve all questions with all details
+  router.get("/all", questions.allDetails);
+
   // Retrieve all published questions
   router.get("/active", questions.findAllActive);
 
