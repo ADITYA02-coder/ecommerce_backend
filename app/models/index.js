@@ -24,5 +24,6 @@ db.questions = require("./question.model.js")(mongoose);
 db.answers = require("./answer.model.js")(mongoose);
 db.comments = require("./comment.model.js")(mongoose);
 db.votes = require("./vote.model.js")(mongoose);
+db.orders = require("./order.model.js")(mongoose);
 
 module.exports = db;
