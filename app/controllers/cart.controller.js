@@ -3,10 +3,16 @@ const Cart = db.carts;
 
 // Create or update Cart (add items)
 exports.create = async (req, res) => {
-  const { userId, productId, quantity, price } = req.body;
+  const { userId, items } = req.body;
 
-  if (!userId || !productId || !quantity || !price) {
+  if (!userId || !items || !Array.isArray(items) || items.length === 0) {
     return res.status(400).send({ message: "Missing required fields." });
+  }
+
+  const { productId, quantity, price } = items[0]; // assume single item for now
+
+  if (!productId || !quantity || !price) {
+    return res.status(400).send({ message: "Missing required item fields." });
   }
 
   try {

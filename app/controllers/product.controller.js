@@ -54,6 +54,7 @@ exports.create = (req, res) => {
   
       Product.create({
         
+        userId: req.body.userId,
         name: req.body.name,
     category: req.body.category,
     price: req.body.price,
