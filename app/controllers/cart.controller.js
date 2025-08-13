@@ -1,6 +1,7 @@
 const db = require("../models");
 const Cart = db.carts;
-
+const mongoose = require("mongoose");
+// const Product = require("../models/product.model");
 // Create or update Cart (add items)
 exports.create = async (req, res) => {
   const { userId, items } = req.body;
@@ -66,6 +67,59 @@ exports.findOne = (req, res) => {
     .catch(err => {
       res.status(500).send({ message: "Error retrieving cart with id=" + id });
     });
+};
+
+
+// Find a cart by userId with populated product details
+// const mongoose = require("mongoose");
+const Product = require("../models/product.model"); // adjust path as needed
+
+exports.findByUserId = async (req, res) => {
+  const userId = req.params.userId;
+
+  // Validate userId format
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).send({ message: "Invalid userId format" });
+  }
+
+  try {
+    const userObjectId = mongoose.Types.ObjectId(userId);
+
+    // Find cart by userId
+    const cart = await Cart.findOne({ userId: userObjectId }).lean();
+
+    if (!cart) {
+      return res.status(404).send({ message: `Cart not found for userId=${userId}` });
+    }
+
+    // For each item, fetch product details and attach
+    const updatedItems = await Promise.all(
+  cart.items.map(async (item) => {
+    let productDetails = null;
+    try {
+      // Convert productId string to ObjectId
+      const productObjectId = mongoose.Types.ObjectId(item.productId);
+      productDetails = await Product.findById(productObjectId).lean();
+    } catch (err) {
+      console.error(`Error fetching product ${item.productId}:`, err);
+    }
+
+    return {
+      ...item,
+      productDetails,
+    };
+  })
+);
+
+    // Return cart with populated productDetails
+    res.send({
+      ...cart,
+      items: updatedItems,
+    });
+  } catch (err) {
+    console.error("Error retrieving cart:", err);
+    res.status(500).send({ message: "Error retrieving cart for userId=" + userId });
+  }
 };
 
 // Update a cart
