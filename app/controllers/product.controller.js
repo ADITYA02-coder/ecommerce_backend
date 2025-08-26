@@ -42,41 +42,37 @@ const fs = require("fs");
 
 
 // Create and Save a new User
-exports.create = (req, res) => {
-  console.log("Hello Aman")
-    try {
-      console.log(req.file);
-  
-      if (req.file === undefined) {
-        return res.send(`You must select a file.`);
-        console.log("You must select a file.");
-      }
-  
-      Product.create({
-        
-        userId: req.body.userId,
-        name: req.body.name,
-    category: req.body.category,
-    price: req.body.price,
-    brand: req.body.brand,
-    ram: req.body.ram,
-    rom: req.body.rom,
-    screenSize: req.body.screenSize,
-    camera: req.body.camera,
-    active: req.body.active ? req.body.active : false,
-    
-    image: req.file.filename,
-        
-        
-      }).then(data => {
-            return res.send(data);
-            console.log(data)
-            return res.send(`File has been uploaded.`);
-      });
-    } catch (error) {
-      console.log(error);
-      return res.send(`Error when trying upload images: ${error}`);
+exports.create = async (req, res) => {
+  console.log("Hello Aman");
+
+  try {
+    console.log(req.file);
+
+    if (!req.file) {
+      console.log("You must select a file.");
+      return res.status(400).send("You must select a file.");
     }
+
+    const data = await Product.create({
+      userId: req.body.userId,
+      name: req.body.name,
+      category: req.body.category,
+      price: req.body.price,
+      brand: req.body.brand,
+      ram: req.body.ram,
+      rom: req.body.rom,
+      screenSize: req.body.screenSize,
+      camera: req.body.camera,
+      active: req.body.active ? req.body.active : false,
+      image: req.file.filename,
+    });
+
+    console.log(data);
+    return res.status(201).send(data);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(`Error when trying to upload image: ${error}`);
+  }
 };
 
 // Retrieve all products from the database.
