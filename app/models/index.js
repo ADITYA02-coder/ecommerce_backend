@@ -28,5 +28,6 @@ db.votes = require("./vote.model.js")(mongoose);
 db.carts = require("./cart.model.js")(mongoose);
 db.orders = require("./order.model.js")(mongoose);
 db.follows = require("./follow.model.js")(mongoose);
+db.addresses = require("./address.model.js")(mongoose);
 
 module.exports = db;
