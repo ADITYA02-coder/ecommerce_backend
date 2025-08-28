@@ -24,5 +24,5 @@ module.exports = app => {
   // Create a new student
   router.delete("/", addresses.deleteAll);
 
-  app.use("/api/books", router);
+  app.use("/api/addresses", router);
 };
