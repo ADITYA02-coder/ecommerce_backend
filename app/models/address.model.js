@@ -2,6 +2,11 @@ module.exports = mongoose => {
   var schema = mongoose.Schema(
     {
       id: String,
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
       addressLine1: String,
       addressLine2: String,
       city: String,
@@ -20,6 +25,6 @@ module.exports = mongoose => {
     return object;
   });
 
-  const Order = mongoose.model("order", schema);
+  const Order = mongoose.model("address", schema);
   return Order;
 };

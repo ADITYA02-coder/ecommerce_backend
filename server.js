@@ -6,6 +6,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const app = express();
 
+
 var corsOptions = {
   credentials: true,
   origin: "http://localhost:3000"
@@ -103,6 +104,8 @@ require("./app/routes/answer.routes")(app);
 require("./app/routes/comment.routes")(app);
 require("./app/routes/cart.routes")(app);
 require("./app/routes/order.routes")(app);
+require("./app/routes/follow.routes")(app);
+require("./app/routes/address.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8090;
