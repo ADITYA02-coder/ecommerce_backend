@@ -8,13 +8,12 @@ module.exports = mongoose => {
         ref: 'User',
         required: true
       },
-      addressLine1: String,
-      addressLine2: String,
-      city: String,
-      district: String,
-      state: String,
-      pin: Number,
-      mobile: Number,
+      
+      orderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Address',
+        required: true
+      },
       active: Boolean,
 
       items: [

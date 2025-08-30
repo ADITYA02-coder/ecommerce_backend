@@ -15,13 +15,7 @@ exports.create = (req, res) => {
 
   const order = new Order({
     userId: req.body.userId,
-    addressLine1: req.body.addressLine1,
-    addressLine2: req.body.addressLine2,
-    city: req.body.city,
-    district: req.body.district,
-    state: req.body.state,
-    pin: req.body.pin,
-    mobile: req.body.mobile,
+    orderId: req.body.orderId,
     active: req.body.active || true,
     items: req.body.items,
     totalAmount: totalAmount,
