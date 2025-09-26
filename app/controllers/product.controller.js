@@ -63,6 +63,8 @@ exports.create = async (req, res) => {
       rom: req.body.rom,
       screenSize: req.body.screenSize,
       camera: req.body.camera,
+      battery: req.body.battery,
+      processor: req.body.processor,
       active: req.body.active ? req.body.active : false,
       image: req.file.filename,
     });

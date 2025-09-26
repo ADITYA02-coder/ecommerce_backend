@@ -9,7 +9,7 @@ module.exports = mongoose => {
         required: true
       },
       
-      orderId: {
+      addressId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Address',
         required: true

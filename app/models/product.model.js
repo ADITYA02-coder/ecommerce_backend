@@ -11,6 +11,8 @@ const schema = new mongoose.Schema(
     rom: Number,
     screenSize: String,
     camera: String,
+    battery: String,
+    processor: String,
     image: String,
     active: Boolean,
   },

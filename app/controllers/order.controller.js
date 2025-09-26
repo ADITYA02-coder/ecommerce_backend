@@ -15,12 +15,14 @@ exports.create = (req, res) => {
 
   const order = new Order({
     userId: req.body.userId,
-    orderId: req.body.orderId,
+    addressId: req.body.addressId,
     active: req.body.active || true,
     items: req.body.items,
     totalAmount: totalAmount,
     paymentStatus: req.body.paymentStatus || "pending",
     orderStatus: req.body.orderStatus || "processing"
+
+    
   });
 
   order.save()
