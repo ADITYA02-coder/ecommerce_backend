@@ -65,6 +65,7 @@ exports.create = async (req, res) => {
       camera: req.body.camera,
       battery: req.body.battery,
       processor: req.body.processor,
+      color: req.body.color,
       active: req.body.active ? req.body.active : false,
       image: req.file.filename,
     });

@@ -13,6 +13,7 @@ const schema = new mongoose.Schema(
     camera: String,
     battery: String,
     processor: String,
+    color: String,
     image: String,
     active: Boolean,
   },
