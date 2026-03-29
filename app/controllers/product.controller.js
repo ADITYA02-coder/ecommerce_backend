@@ -66,6 +66,10 @@ exports.create = async (req, res) => {
       battery: req.body.battery,
       processor: req.body.processor,
       color: req.body.color,
+      rating: req.body.rating,
+      stock: req.body.stock,
+      quantity: req.body.quantity,
+      availability: req.body.availability,
       active: req.body.active ? req.body.active : false,
       image: req.file.filename,
     });

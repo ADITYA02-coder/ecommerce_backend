@@ -15,6 +15,10 @@ const schema = new mongoose.Schema(
     processor: String,
     color: String,
     image: String,
+    rating: { type: Number, default: 0 },
+    stock: { type: Number, default: 0 },
+    quantity: { type: Number, default: 1 },
+    availability: { type: Boolean, default: true },
     active: Boolean,
   },
   { timestamps: true }
